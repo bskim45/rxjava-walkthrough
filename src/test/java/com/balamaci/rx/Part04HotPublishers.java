@@ -92,13 +92,20 @@ public class Part04HotPublishers implements BaseTestObservables {
         Helpers.sleepMillis(1000);
         log.info("Subscribing 1st");
 
+        pushToSubject(subject, 0);
+
         CountDownLatch latch = new CountDownLatch(2);
-        subject
-                .subscribe(val -> log.info("Subscriber1 received {}", val), logError(), logComplete(latch));
+        subject.subscribe(val -> log.info("Subscriber1 received {}", val), logError(), logComplete(latch));
+        pushToSubject(subject, 1);
 
         Helpers.sleepMillis(1000);
+
         log.info("Subscribing 2nd");
         subject.subscribe(val -> log.info("Subscriber2 received {}", val), logError(), logComplete(latch));
+        pushToSubject(subject, 2);
+
+        subject.onComplete();
+
         Helpers.wait(latch);
     }
 

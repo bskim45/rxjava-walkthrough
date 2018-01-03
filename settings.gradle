@@ -1,0 +1,3 @@
+rootProject.name = 'rxjava-walkthrough-kotlin'
+rootProject.buildFileName = 'build.gradle.kts'
+
